@@ -1,0 +1,67 @@
+  # ==========================================
+# Root level ignores
+# ==========================================
+# General
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Root project node_modules (if any are created)
+node_modules/
+
+# Editor settings (optional but recommended)
+.vscode/
+.idea/
+
+# Environment files at the root
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ==========================================
+# Backend specific ignores
+# ==========================================
+# Ignore the backend dependencies
+backend/node_modules/
+
+# Ignore backend environment files (critical for security)
+backend/.env
+backend/.env.local
+backend/.env.development.local
+backend/.env.test.local
+backend/.env.production.local
+
+# Optional: Ignore common backend logs
+backend/logs
+
+# ==========================================
+# Frontend specific ignores
+# ==========================================
+# Ignore the frontend dependencies
+frontend/node_modules/
+
+# Ignore the build output folder (Vite default is 'dist')
+frontend/dist/
+# Alternative build folder names, in case you change configuration
+frontend/build/
+frontend/out/
+
+# Ignore frontend environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Vite specific
+frontend/.vite
+
+# ESLint cache
+.eslintcache
+frontend/.eslintcache
