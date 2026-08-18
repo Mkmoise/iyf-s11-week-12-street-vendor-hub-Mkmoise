@@ -8,7 +8,7 @@ const vendorsRouter = require("./vendor.Routes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Default local database fallback string
+// MongoDB connection string
 const MONGO_URI =
   process.env.MONGO_URI || "mongodb://127.0.0.1:27017/streetvendorhub";
 
@@ -29,6 +29,7 @@ mongoose
   .connect(MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB Connected Successfully");
+
     app.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
