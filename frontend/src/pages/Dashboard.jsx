@@ -185,7 +185,7 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div className="dashboard">
       <h1>Advertisements & Reviews</h1>
 
       <button
