@@ -1,7 +1,3 @@
-/* ==========================================================================
-   STREET VENDOR HUB - COMPLETE CSS SYSTEM
-   ========================================================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* --- Resets to Override Vite Defaults --- */
@@ -27,9 +23,7 @@ html, body {
   padding: 0 !important;
 }
 
-/* ==========================================================================
-   1. MAIN VENDORS LIST PAGE (/vendors)
-   ========================================================================== */
+/* MAIN VENDORS LIST PAGE */ 
 
 .vendors-page {
   max-width: 1200px;
@@ -129,9 +123,7 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-/* ==========================================================================
-   2. CENTERED ADD VENDOR PAGE (/vendors/add)
-   ========================================================================== */
+/*CENTERED ADD VENDOR PAGE (/vendors/add)*/
 
 /* Outer full-screen container ensuring true flexbox centering */
 .add-vendor-page-wrapper {
