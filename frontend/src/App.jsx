@@ -11,6 +11,8 @@ import VendorDetails from "./pages/VendorDetails";
 import AddVendor from "./pages/AddVendor";
 import EditVendor from "./pages/EditVendor";
 import "./styles/vendors.css";
+import Dashboard from "./pages/Dashboard";
+
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         {/* Fallback route for undefined paths */}
         <Route path="*" element={<Navigate to="/vendors" replace />} />
       </Routes>
+
+      <Dashboard />
     </BrowserRouter>
   );
 }
