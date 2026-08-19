@@ -39,8 +39,9 @@ function EditAdvertisement({
     event.preventDefault();
 
     try {
+      
       const response = await fetch(
-        http://localhost:5000/api/advertisements/${advertisement._id},
+        `http://localhost:5000/api/advertisements/${advertisement._id}`,
         {
           method: "PUT",
           headers: {
