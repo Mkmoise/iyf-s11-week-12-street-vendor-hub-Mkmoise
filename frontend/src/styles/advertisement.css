@@ -1,0 +1,132 @@
+/* Main dashboard */
+.dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+/* Page title */
+.dashboard h1 {
+  margin-bottom: 25px;
+  font-size: 32px;
+}
+
+.dashboard h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 5px;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+/* Advertisement form */
+.advertisement-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+}
+
+.advertisement-form input,
+.advertisement-form textarea,
+.advertisement-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.advertisement-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Advertisement list */
+.advertisement-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+  gap: 20px;
+}
+
+/* Advertisement card */
+.advertisement-card {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.advertisement-card img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.advertisement-card h3 {
+  margin-bottom: 10px;
+}
+
+.advertisement-card p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+/* Review section */
+.review-section {
+  margin-top: 40px;
+}
+
+/* Review card */
+.review-card {
+  padding: 18px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.review-card h3 {
+  margin-bottom: 8px;
+}
+
+.review-card p {
+  margin: 8px 0;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  .dashboard h1 {
+    font-size: 25px;
+  }
+
+  .advertisement-list {
+    grid-template-columns: 1fr;
+  }
+}

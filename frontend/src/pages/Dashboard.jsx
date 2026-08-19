@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-
 import AdvertisementCard from "../components/AdvertisementCard";
 import ReviewCard from "../components/ReviewCard";
-
 import CreateAdvertisement from "./CreateAdvertisement";
 import EditAdvertisement from "./EditAdvertisement";
+import "../styles/advertisement.css";
 
 function Dashboard() {
   const [advertisements, setAdvertisements] =
