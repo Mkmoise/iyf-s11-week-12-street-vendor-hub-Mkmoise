@@ -15,6 +15,8 @@ import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthNav from "./components/AuthNav";
 import "./styles/vendors.css";
+import Dashboard from "./pages/Dashboard";
+
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
         {/* Fallback route for undefined paths */}
         <Route path="*" element={<Navigate to="/vendors" replace />} />
       </Routes>
+
+      <Dashboard />
     </BrowserRouter>
   );
 }
