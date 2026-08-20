@@ -13,11 +13,13 @@ import EditVendor from "./pages/EditVendor";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AuthNav from "./components/AuthNav";
 import "./styles/vendors.css";
 
 function App() {
   return (
     <BrowserRouter>
+      <AuthNav />
       <Routes>
         {/* Redirect home route to /vendors */}
         <Route path="/" element={<Navigate to="/vendors" replace />} />
