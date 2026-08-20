@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const vendorsRouter = require("./vendor.Routes");
+const authRouter = require("./auth.Routes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 
 // Vendor API Routes
 app.use("/api/vendors", vendorsRouter);
+app.use("/api/auth", authRouter);
 
 // Connect to MongoDB and start server
 mongoose
