@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../styles/auth.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -33,9 +34,13 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page">
+    <main className="auth-container">
       <form onSubmit={handleSubmit} className="auth-form">
-        <h2>Log In</h2>
+        <div className="auth-heading">
+          <p className="auth-eyebrow">Street Vendor Hub</p>
+          <h1>Welcome back</h1>
+          <p>Log in to discover and manage local vendors.</p>
+        </div>
 
         {error && <p className="auth-error">{error}</p>}
 
@@ -44,6 +49,8 @@ export default function Login() {
           id="email"
           name="email"
           type="email"
+          className="auth-input"
+          autoComplete="email"
           value={formData.email}
           onChange={handleChange}
           required
@@ -54,19 +61,21 @@ export default function Login() {
           id="password"
           name="password"
           type="password"
+          className="auth-input"
+          autoComplete="current-password"
           value={formData.password}
           onChange={handleChange}
           required
         />
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="auth-button" disabled={loading}>
           {loading ? "Logging in..." : "Log In"}
         </button>
 
-        <p>
+        <p className="auth-link">
           Don't have an account? <Link to="/register">Register</Link>
         </p>
       </form>
-    </div>
+    </main>
   );
 }

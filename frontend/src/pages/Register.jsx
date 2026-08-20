@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../styles/auth.css";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -34,9 +35,13 @@ export default function Register() {
   };
 
   return (
-    <div className="auth-page">
+    <main className="auth-container">
       <form onSubmit={handleSubmit} className="auth-form">
-        <h2>Create an Account</h2>
+        <div className="auth-heading">
+          <p className="auth-eyebrow">Street Vendor Hub</p>
+          <h1>Create your account</h1>
+          <p>Join the community and find your next local favorite.</p>
+        </div>
 
         {error && <p className="auth-error">{error}</p>}
 
@@ -45,6 +50,8 @@ export default function Register() {
           id="name"
           name="name"
           type="text"
+          className="auth-input"
+          autoComplete="name"
           value={formData.name}
           onChange={handleChange}
           required
@@ -55,6 +62,8 @@ export default function Register() {
           id="email"
           name="email"
           type="email"
+          className="auth-input"
+          autoComplete="email"
           value={formData.email}
           onChange={handleChange}
           required
@@ -65,20 +74,22 @@ export default function Register() {
           id="password"
           name="password"
           type="password"
+          className="auth-input"
+          autoComplete="new-password"
           value={formData.password}
           onChange={handleChange}
           required
           minLength={6}
         />
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="auth-button" disabled={loading}>
           {loading ? "Creating account..." : "Register"}
         </button>
 
-        <p>
+        <p className="auth-link">
           Already have an account? <Link to="/login">Log in</Link>
         </p>
       </form>
-    </div>
+    </main>
   );
 }
