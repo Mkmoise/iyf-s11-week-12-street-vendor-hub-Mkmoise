@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// Page Components
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -13,12 +12,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 
-// Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// Styles
 import "./App.css";
 import "./styles/vendors.css";
 
@@ -30,6 +27,7 @@ function App() {
 
         <main className="main-content">
           <Routes>
+
             {/* Core General Pages */}
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -72,8 +70,9 @@ function App() {
               }
             />
 
-            {/* Fallback Redirect */}
+            {/* Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
+
           </Routes>
         </main>
 

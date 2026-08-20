@@ -32,7 +32,7 @@ function Dashboard() {
   const fetchAdvertisements = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/advertisements"
+        "http://localhost:3000/api/advertisements"
       );
 
       const data = await response.json();
@@ -88,7 +88,7 @@ function Dashboard() {
   ) => {
     try {
       const response = await fetch(
-        'http://localhost:5000/api/advertisements/${id}',
+        `http://localhost:3000/api/advertisements/${id}`,
         {
           method: "DELETE",
         }
