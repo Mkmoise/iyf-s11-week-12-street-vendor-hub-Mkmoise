@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import './Navbar.css'; // Imports the navbar styling
 
 function Navbar() {
   return (
@@ -17,8 +18,15 @@ function Navbar() {
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+            end
           >
             Home
+          </NavLink>
+          <NavLink
+            to="/street-vendors"
+            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+          >
+            Street Vendors
           </NavLink>
           <NavLink
             to="/about"

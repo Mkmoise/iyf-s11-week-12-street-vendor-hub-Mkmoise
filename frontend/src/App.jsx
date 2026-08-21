@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 // Page Components
 import Home from './pages/Home';
@@ -18,9 +18,21 @@ import Footer from './components/Footer';
 import './App.css';
 import './styles/vendors.css';
 
+// Helper component to scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="app-container">
         <Navbar />
 
@@ -32,7 +44,12 @@ function App() {
             <Route path="/contact" element={<Contact />} />
 
             {/* Vendor Management Routes */}
-            <Route path="/vendors" element={<Vendors />} />
+            {/* Matches the /street-vendors link in your Navbar.jsx */}
+            <Route path="/street-vendors" element={<Vendors />} /> 
+            
+            {/* Redirect /vendors to /street-vendors for consistency */}
+            <Route path="/vendors" element={<Navigate to="/street-vendors" replace />} />
+            
             <Route path="/vendors/add" element={<AddVendor />} />
             <Route path="/vendors/:id" element={<VendorDetails />} />
             <Route path="/vendors/edit/:id" element={<EditVendor />} />
