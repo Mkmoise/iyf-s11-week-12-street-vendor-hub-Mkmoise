@@ -1,6 +1,4 @@
 # iyf-s11-week-12-street-vendor-hub-Mkmoise
-# Week 12: Street Vendor Hub
-
 ## Author
 - **Name:** [kennedymurimi100]
 - **GitHub:** [@kennedymurimi100](https://github.com/kennedymurimi100)
