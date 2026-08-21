@@ -52,7 +52,14 @@ function App() {
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Vendor Management Routes */}
             <Route path="/street-vendors" element={<Vendors />} />
@@ -67,7 +74,14 @@ function App() {
               }
             />
             <Route path="/vendors/:id" element={<VendorDetails />} />
-            <Route path="/vendors/edit/:id" element={<EditVendor />} />
+            <Route
+              path="/vendors/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditVendor />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Fallback Redirect */}
             <Route path="*" element={<Navigate to="/" replace />} />

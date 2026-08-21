@@ -10,8 +10,7 @@ function ReviewCard({ review, onDelete }) {
 
       <p>{review.comment}</p>
 
-      <button
-        onClick={() => onDelete(review._id)}>
+      <button onClick={() => onDelete(review._id)}>
         Delete
       </button>
     </div>

@@ -39,9 +39,8 @@ function EditAdvertisement({
     event.preventDefault();
 
     try {
-      
       const response = await fetch(
-        `http://localhost:5000/api/advertisements/${advertisement._id}`,
+        `http://localhost:3000/api/advertisements/${advertisement._id}`,
         {
           method: "PUT",
           headers: {
@@ -73,7 +72,10 @@ function EditAdvertisement({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      className="advertisement-form"
+      onSubmit={handleSubmit}
+    >
       <h2>Edit Advertisement</h2>
 
       <input
