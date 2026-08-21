@@ -1,1 +1,96 @@
 # iyf-s11-week-12-street-vendor-hub-Mkmoise
+# Week 12: Street Vendor Hub
+
+## Author
+- **Name:** [kennedymurimi100]
+- **GitHub:** [@kennedymurimi100](https://github.com/kennedymurimi100)
+- **Date:** August 21, 2026
+
+## Project Description
+Street Vendor Hub is a full-stack community platform that connects local street vendors with customers. Vendors can create listings for their stalls, and users can browse, search, and view vendor details, alongside advertisement listings and a review system. The app includes full user authentication so vendors can manage their own listings securely.
+
+## Technologies Used
+- React 19 + Vite
+- React Router
+- Node.js / Express 5
+- MongoDB with Mongoose
+- JWT authentication (jsonwebtoken, bcryptjs)
+- CORS
+- CSS (custom stylesheets per feature)
+
+## Features
+- User registration & login with JWT-based authentication
+- Protected routes for authenticated actions
+- Browse all vendors (Vendors page)
+- View a single vendor's details (Vendor Details page)
+- Add a new vendor listing
+- Edit an existing vendor listing
+- Advertisement creation and editing
+- Vendor and advertisement cards for listing views
+- Review card component for vendor reviews
+- Responsive navigation bar and footer
+- About / Contact / Home informational pages
+
+## Team
+- Team Lead: [@Mkmoise](https://github.com/Mkmoise) — project setup, Dashboard, Advertisement feature, routing
+- Auth (this contributor): [@kennedymurimi100](https://github.com/kennedymurimi100) — authentication system (backend + frontend)
+- Vendors: [@rhonexkilibwa001](https://github.com/rhonexkilibwa001) — vendor listings feature
+- Reviewer: [@kuriarobert41-debug](https://github.com/kuriarobert41-debug) — PR reviews/merges
+
+## My Contributions
+I was responsible for the **authentication system end-to-end**:
+- Backend: `user.js` (model), `authController.js`, `authMiddleware.js`, `auth.Routes.js` — register/login/JWT endpoints
+- Frontend: `AuthContext.jsx`, `ProtectedRoute.jsx`, `Login.jsx`, `Register.jsx`, `AuthNav.jsx`
+- Styling: `auth.css` (isolated auth UI styles)
+- Wired auth environment variables and fixed backend env-loading bugs
+- Opened and merged PR #4/#6 (`feature/authentication`) into `main`
+
+## How to Run
+
+### Prerequisites
+- Node.js 18+
+- MongoDB Atlas account (or local MongoDB)
+
+### Backend
+```bash
+cd backend
+npm install
+cp .env.example .env   # add MONGODB_URI, JWT_SECRET, etc.
+npm run dev
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open the Vite dev server URL shown in your terminal (typically `http://localhost:5173`).
+
+## API Endpoints
+
+### Auth
+- `POST /api/auth/register` — Register user
+- `POST /api/auth/login` — Login user
+- `GET /api/auth/me` — Get current user (protected)
+
+### Vendors
+- `GET /api/vendors` — Get all vendors
+- `POST /api/vendors` — Create a vendor
+
+## Lessons Learned
+- How to structure a full-stack MERN app across a team, with each member owning a feature slice (auth, vendors, advertisements)
+- Working with the React Router + protected route pattern to gate authenticated pages
+- Coordinating a shared Express backend with multiple route modules mounted under `/api`
+
+## Challenges Faced
+- Resolving merge conflicts in `App.jsx` where multiple teammates added routes/components in parallel
+- Making sure `.env` files and `node_modules` were excluded from git tracking after they were accidentally committed early on
+- Keeping styling isolated per feature (vendors vs. auth vs. advertisements) to avoid CSS collisions
+
+## Screenshots (optional)
+_Add screenshots here, e.g._
+
+
+## Live Demo (if deployed)
