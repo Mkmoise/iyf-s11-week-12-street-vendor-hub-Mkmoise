@@ -1,3 +1,4 @@
+
 // backend/app.js
 const express = require('express');
 const cors = require('cors'); // CORS is needed to allow your frontend to talk to your backend.
@@ -7,6 +8,7 @@ const app = express();
 
 // 2. Import your route modules.
 const vendorRoutes = require('./vendor.Routes');
+const authRouter = require('./auth.Routes');
 
 // 3. Setup Middleware.
 app.use(cors()); // Allow cross-origin requests.
@@ -15,6 +17,7 @@ app.use(express.json()); // Allow the app to read JSON data sent in request bodi
 // 4. Mount your routes.
 // Every URL that starts with /api/vendors will use vendor.Routes.js.
 app.use('/api/vendors', vendorRoutes);
+app.use('/api/auth', authRouter);
 
 // You can add more routes here, e.g., app.use('/api/products', productRoutes);
 
