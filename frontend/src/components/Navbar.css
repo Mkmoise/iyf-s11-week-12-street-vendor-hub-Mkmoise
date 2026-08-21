@@ -1,0 +1,54 @@
+/* Container Header */
+.navbar-header {
+  background-color: #1a1a1a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+/* Flexbox Layout for Nav */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+/* Logo Styling */
+.brand-logo {
+  text-decoration: none;
+}
+
+.brand-title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Links Container */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* Individual Navigation Link */
+.nav-link {
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 1rem;
+  padding-bottom: 4px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+/* Highlight the active link (React Router NavLink) */
+.nav-link.active {
+  color: #ff9800;
+  font-weight: 600;
+  border-bottom: 2px solid #ff9800;
+}
