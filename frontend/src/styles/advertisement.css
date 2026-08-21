@@ -1,58 +1,226 @@
-/* Main dashboard */
+/* =========================================
+   DASHBOARD
+========================================= */
+
 .dashboard {
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 30px;
-  font-family: Arial, sans-serif;
+  padding: 40px 20px 60px;
+  box-sizing: border-box;
 }
 
-/* Page title */
-.dashboard h1 {
-  margin-bottom: 25px;
-  font-size: 32px; 
-  text-decoration:underline ;
-  color: blue;
+.dashboard-header {
+  margin-bottom: 30px;
 }
 
-.dashboard h2 {
-  margin-top: 30px;
+.dashboard-header h1 {
+  margin: 0 0 10px;
+  font-size: 2rem;
+  color: #1f2937;
+}
+
+.dashboard-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.dashboard-section {
+  margin-top: 40px;
+}
+
+.dashboard-section h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #1f2937;
+}
+
+.dashboard-divider {
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin: 40px 0;
+}
+
+/* =========================================
+   CREATE BUTTON
+========================================= */
+
+.create-ad-button {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.create-ad-button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   ADVERTISEMENT GRID
+========================================= */
+
+.advertisement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* =========================================
+   ADVERTISEMENT CARD
+========================================= */
+
+.advertisement-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: 0.2s ease;
+}
+
+.advertisement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.advertisement-card img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.advertisement-card-content {
+  padding: 20px;
+}
+
+.advertisement-card h3 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 1.2rem;
+}
+
+.advertisement-description {
+  color: #6b7280;
+  line-height: 1.6;
   margin-bottom: 15px;
 }
 
-/* Buttons */
-button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+/* =========================================
+   DETAILS
+========================================= */
+
+.advertisement-price {
+  color: #16a34a;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.advertisement-detail {
+  margin: 6px 0;
+  color: #4b5563;
   font-size: 14px;
-  margin: 5px;
 }
 
-button:hover {
-  opacity: 0.85;
+.advertisement-detail strong {
+  color: #1f2937;
 }
 
-/* Advertisement form */
-.advertisement-form {
+/* =========================================
+   STATUS
+========================================= */
+
+.advertisement-status {
+  display: inline-block;
+  margin: 12px 0;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.advertisement-actions {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 600px;
-  padding: 20px;
-  margin: 20px 0;
-  border-radius: 10px;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.advertisement-actions button {
+  flex: 1;
+  border: none;
+  border-radius: 7px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.edit-button {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.edit-button:hover {
+  background: #bae6fd;
+}
+
+.delete-button {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.delete-button:hover {
+  background: #fecaca;
+}
+
+/* =========================================
+   FORMS
+========================================= */
+
+.advertisement-form {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 25px;
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.advertisement-form h2 {
+  margin-top: 0;
 }
 
 .advertisement-form input,
 .advertisement-form textarea,
 .advertisement-form select {
+  display: block;
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
   box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  background: white;
+  color: #111827;
+  font-size: 15px;
+  font-family: inherit;
 }
 
 .advertisement-form textarea {
@@ -60,75 +228,112 @@ button:hover {
   resize: vertical;
 }
 
-/* Advertisement list */
-.advertisement-list {
+.advertisement-form input:focus,
+.advertisement-form textarea:focus,
+.advertisement-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.advertisement-form button {
+  border: none;
+  border-radius: 7px;
+  padding: 11px 18px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.advertisement-form button:hover {
+  background: #1d4ed8;
+}
+
+/* =========================================
+   REVIEWS
+========================================= */
+
+.review-list {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
-  );
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
-/* Advertisement card */
-.advertisement-card {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-}
-
-.advertisement-card img {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
-}
-
-.advertisement-card h3 {
-  margin-bottom: 10px;
-}
-
-.advertisement-card p {
-  margin: 8px 0;
-  line-height: 1.5;
-}
-
-/* Review section */
-.review-section {
-  margin-top: 40px;
-}
-
-/* Review card */
 .review-card {
-  padding: 18px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
+  background: white;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
-  background: #fff;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 .review-card h3 {
+  margin-top: 0;
   margin-bottom: 8px;
+  color: #111827;
 }
 
 .review-card p {
-  margin: 8px 0;
+  color: #4b5563;
+  line-height: 1.5;
 }
 
-/* Responsive design */
+.review-card button {
+  border: none;
+  border-radius: 7px;
+  padding: 8px 14px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.review-card button:hover {
+  background: #fecaca;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+  padding: 30px;
+  text-align: center;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  color: #6b7280;
+  background: #f9fafb;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .advertisement-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .review-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 600px) {
   .dashboard {
-    padding: 15px;
+    padding: 25px 15px 40px;
   }
 
-  .dashboard h1 {
-    font-size: 25px;
-  }
-
-  .advertisement-list {
+  .advertisement-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .advertisement-actions {
+    flex-direction: column;
   }
 }

@@ -24,7 +24,7 @@ function CreateAdvertisement({
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/advertisements",
+        "http://localhost:3000/api/advertisements",
         {
           method: "POST",
           headers: {
@@ -63,7 +63,10 @@ function CreateAdvertisement({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      className="advertisement-form"
+      onSubmit={handleSubmit}
+    >
       <h2>Create Advertisement</h2>
 
       <input
