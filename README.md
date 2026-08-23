@@ -1,7 +1,6 @@
 # iyf-s11-week-12-street-vendor-hub-Mkmoise
 ## Author
-- **Name:** [kennedymurimi100]
-- **GitHub:** [@kennedymurimi100](https://github.com/kennedymurimi100)
+- **Name:** [SYNTAX GROUP]
 - **Date:** August 21, 2026
 
 ## Project Description
@@ -35,15 +34,13 @@ Street Vendor Hub is a full-stack community platform that connects local street 
 - Vendors: [@rhonexkilibwa001](https://github.com/rhonexkilibwa001) — vendor listings feature
 - Reviewer: [@kuriarobert41-debug](https://github.com/kuriarobert41-debug) — PR reviews/merges
 
-## My Contributions
-I was responsible for the **authentication system end-to-end**:
+## OUR Contributions
+We us the syntax group we have developed a web site that help the vendors in expanding their business**:
 - Backend: `user.js` (model), `authController.js`, `authMiddleware.js`, `auth.Routes.js` — register/login/JWT endpoints
 - Frontend: `AuthContext.jsx`, `ProtectedRoute.jsx`, `Login.jsx`, `Register.jsx`, `AuthNav.jsx`
 - Styling: `auth.css` (isolated auth UI styles)
 - Wired auth environment variables and fixed backend env-loading bugs
 - Opened and merged PR #4/#6 (`feature/authentication`) into `main`
-
-## How to Run
 
 ### Prerequisites
 - Node.js 18+
