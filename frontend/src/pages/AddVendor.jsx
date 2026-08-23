@@ -1,160 +1,151 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import '../styles/vendors.css';
+import {
+  useState,
+} from "react";
+
+import {
+  useNavigate,
+} from "react-router-dom";
+
+import {
+  vendorAPI,
+} from "../services/api";
 
 export default function AddVendor() {
-  const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const navigate =
+    useNavigate();
 
-  // Updated state: 'name' changed to 'businessName' to match Mongoose schema
-  const [formData, setFormData] = useState({
-    businessName: '',
-    email: '',
-    phone: '',
-    category: '',
-    location: '',
-    description: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+  const [form, setForm] =
+    useState({
+      name: "",
+      category: "",
+      description: "",
+      location: "",
+      phone: "",
     });
+
+  const [error, setError] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const handleChange = (
+    event
+  ) => {
+    setForm((previous) => ({
+      ...previous,
+      [event.target.name]:
+        event.target.value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+  const handleSubmit = async (
+    event
+  ) => {
+    event.preventDefault();
+
     setLoading(true);
+    setError("");
 
     try {
-      const response = await fetch('http://localhost:3000/api/vendors', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      await vendorAPI.create(form);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to add vendor.');
-      }
-
-      // Success! Redirect to vendors page
-      navigate('/vendors');
-    } catch (err) {
-      console.error('API Error:', err);
-      setError(err.message || 'Failed to add vendor. Please try again.');
+      navigate("/vendors");
+    } catch (error) {
+      setError(
+        error.message ||
+          "Unable to create vendor."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="add-vendor-page-wrapper">
-      <div className="add-vendor-card">
-        <Link to="/vendors" className="back-link">
-          ← Back to Vendors
-        </Link>
+    <main className="page">
+      <div className="form-container">
+        <h1>
+          Add Vendor
+        </h1>
 
-        <div className="form-header">
-          <h2>Add New Vendor</h2>
-          <p>Fill out the details below to register a vendor.</p>
-        </div>
-
-        {error && <div className="error-banner">{error}</div>}
-
-        <form className="vendor-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="businessName">Vendor / Business Name</label>
-            <input
-              id="businessName"
-              type="text"
-              name="businessName"
-              value={formData.businessName}
-              onChange={handleChange}
-              placeholder="e.g. Street Bite Catering"
-              required
-            />
+        {error && (
+          <div className="error-message">
+            {error}
           </div>
+        )}
 
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="vendor@example.com"
-              required
-            />
-          </div>
+        <form
+          className="form"
+          onSubmit={handleSubmit}
+        >
+          <label>
+            Vendor Name
+          </label>
 
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
-            <input
-              id="phone"
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="0758263525"
-              required
-            />
-          </div>
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
 
-          <div className="form-group">
-            <label htmlFor="category">Category</label>
-            <select
-              id="category"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Category</option>
-              <option value="Food & Beverages">Food & Beverages</option>
-              <option value="Apparel & Crafts">Apparel & Crafts</option>
-              <option value="Services">Services</option>
-              <option value="Electronics">Electronics</option>
-            </select>
-          </div>
+          <label>
+            Category
+          </label>
 
-          <div className="form-group">
-            <label htmlFor="location">Location / Address</label>
-            <input
-              id="location"
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="e.g. Nairobi"
-              required
-            />
-          </div>
+          <input
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            placeholder="Food, clothing, electronics..."
+            required
+          />
 
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              rows="3"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Brief description of products or services..."
-            ></textarea>
-          </div>
+          <label>
+            Description
+          </label>
 
-          <button type="submit" className="submit-btn" disabled={loading}>
-            {loading ? 'Saving...' : 'Add Vendor'}
+          <textarea
+            name="description"
+            value={
+              form.description
+            }
+            onChange={handleChange}
+            rows="5"
+          />
+
+          <label>
+            Location
+          </label>
+
+          <input
+            name="location"
+            value={form.location}
+            onChange={handleChange}
+            required
+          />
+
+          <label>
+            Phone
+          </label>
+
+          <input
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+          />
+
+          <button
+            type="submit"
+            className="button"
+            disabled={loading}
+          >
+            {loading
+              ? "Saving..."
+              : "Add Vendor"}
           </button>
         </form>
       </div>
-    </div>
+    </main>
   );
 }

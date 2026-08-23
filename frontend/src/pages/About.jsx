@@ -1,50 +1,35 @@
-import React from 'react';
-
-function About() {
+export default function About() {
   return (
-    <div className="about-container">
-      {/* Header Banner */}
-      <header className="about-header">
-        <h1>About StreetVendorHub</h1>
-        <p className="subtitle">
-          Bridging the gap between street vendors and local communities through accessible digital solutions.
+    <main className="page">
+      <div className="container narrow">
+        <p className="eyebrow">
+          ABOUT US
         </p>
-      </header>
 
-      {/* Mission & Vision Section */}
-      <section className="about-mission-grid">
-        <div className="card">
-          <h2>Our Mission</h2>
-          <p>
-            To empower informal traders and street micro-enterprises by providing digital tools that increase their visibility, expand their customer base, and foster economic growth.
-          </p>
-        </div>
+        <h1>
+          About StreetVendorHub
+        </h1>
 
-        <div className="card">
-          <h2>Our Vision</h2>
-          <p>
-            An inclusive economy where local street vendors seamlessly connect with urban consumers, leveraging modern web technology to build sustainable livelihoods.
-          </p>
-        </div>
-      </section>
+        <p className="large-text">
+          StreetVendorHub is a platform
+          designed to connect street
+          vendors, customers and local
+          communities.
+        </p>
 
-      {/* Core Values Section */}
-      <section className="about-values">
-        <h2>What Drives Us</h2>
-        <ul>
-          <li>
-            <strong>Community Empowerment:</strong> Supporting local entrepreneurs and grassroots commerce.
-          </li>
-          <li>
-            <strong>Accessibility:</strong> Building lightweight, easy-to-use interfaces for all user devices.
-          </li>
-          <li>
-            <strong>Economic Inclusion:</strong> Bringing informal market traders into the digital space.
-          </li>
-        </ul>
-      </section>
-    </div>
+        <p>
+          Vendors can showcase their
+          businesses, create
+          advertisements and interact
+          with customers.
+        </p>
+
+        <p>
+          Community members can create
+          posts, comment on discussions
+          and build their profiles.
+        </p>
+      </div>
+    </main>
   );
 }
-
-export default About;

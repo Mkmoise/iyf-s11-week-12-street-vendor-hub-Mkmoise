@@ -1,40 +1,107 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import {
+  Link,
+} from "react-router-dom";
 
-function Home() {
+export default function Home() {
   return (
-    <div className="home-container">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <h1>Welcome to StreetVendorHub</h1>
-        <p>Connecting local street vendors with customer communities seamlessly.</p>
-        <div className="hero-buttons">
-          <Link to="/vendors" className="btn btn-primary">
-            Explore Vendors
-          </Link>
-          <Link to="/about" className="btn btn-secondary">
-            Learn More
-          </Link>
+    <main className="home">
+      <section className="hero">
+        <div className="hero-content">
+          <p className="eyebrow">
+            STREETVENDORHUB
+          </p>
+
+          <h1>
+            Empowering Street Vendors
+            Through Community
+          </h1>
+
+          <p>
+            Discover local vendors,
+            connect with customers,
+            advertise your products,
+            and share your experience
+            with the community.
+          </p>
+
+          <div className="hero-actions">
+            <Link
+              to="/vendors"
+              className="button"
+            >
+              Explore Vendors
+            </Link>
+
+            <Link
+              to="/posts"
+              className="button secondary-button"
+            >
+              Join Community
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Highlights / Features Section */}
-      <section className="features-section">
-        <div className="feature-card">
-          <h3>Discover Local Vendors</h3>
-          <p>Find fresh produce, street food, and everyday essentials nearby.</p>
-        </div>
-        <div className="feature-card">
-          <h3>Empower Local Markets</h3>
-          <p>Support informal micro-enterprises directly in your neighborhood.</p>
-        </div>
-        <div className="feature-card">
-          <h3>Real-Time Updates</h3>
-          <p>Stay updated on operational hours and live vendor locations.</p>
+      <section className="feature-section">
+        <div className="container">
+          <div className="section-heading">
+            <p className="eyebrow">
+              WHAT WE OFFER
+            </p>
+
+            <h2>
+              Everything in one place
+            </h2>
+          </div>
+
+          <div className="feature-grid">
+            <article>
+              <h3>
+                Find Vendors
+              </h3>
+
+              <p>
+                Discover local street
+                vendors and their
+                products.
+              </p>
+            </article>
+
+            <article>
+              <h3>
+                Community
+              </h3>
+
+              <p>
+                Share posts and interact
+                through comments.
+              </p>
+            </article>
+
+            <article>
+              <h3>
+                Advertise
+              </h3>
+
+              <p>
+                Promote your products
+                and services.
+              </p>
+            </article>
+
+            <article>
+              <h3>
+                Your Profile
+              </h3>
+
+              <p>
+                Build your own profile
+                and connect with others.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
-
-export default Home;

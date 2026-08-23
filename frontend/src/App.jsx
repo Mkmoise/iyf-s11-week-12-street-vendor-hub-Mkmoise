@@ -1,69 +1,98 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 
-// Page Components
-import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Vendors from './pages/Vendors';
-import VendorDetails from './pages/VendorDetails';
-import AddVendor from './pages/AddVendor';
-import EditVendor from './pages/EditVendor';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-// Layout & Protected Components
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import AuthNav from './components/AuthNav';
-import ProtectedRoute from './components/ProtectedRoute';
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
-// Styles
-import './App.css';
-import './styles/vendors.css';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 
-// Helper component to scroll to top on route change
-function ScrollToTop() {
-  const { pathname } = useLocation();
+import Vendors from "./pages/Vendors";
+import VendorDetails from "./pages/VendorDetails";
+import AddVendor from "./pages/AddVendor";
+import EditVendor from "./pages/EditVendor";
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+import Advertisements from "./pages/Advertisements";
+import CreateAdvertisement from "./pages/CreateAdvertisement";
+import EditAdvertisement from "./pages/EditAdvertisement";
 
-  return null;
-}
+import Posts from "./pages/Posts";
+import CreatePost from "./pages/CreatePost";
+import PostDetails from "./pages/PostDetails";
 
-function App() {
+import "./App.css";
+
+export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <div className="app-container">
+      <div className="app">
         <Navbar />
-        <AuthNav />
 
         <main className="main-content">
           <Routes>
-            {/* Core General Pages */}
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            {/* GENERAL */}
 
-            {/* Auth Routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
             <Route
-              path="/dashboard"
+              path="/"
+              element={<Home />}
+            />
+
+            <Route
+              path="/about"
+              element={<About />}
+            />
+
+            <Route
+              path="/contact"
+              element={<Contact />}
+            />
+
+            {/* AUTH */}
+
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+
+            <Route
+              path="/register"
+              element={<Register />}
+            />
+
+            {/* PROFILE */}
+
+            <Route
+              path="/profile"
               element={
                 <ProtectedRoute>
-                  <Dashboard />
+                  <Profile />
                 </ProtectedRoute>
               }
             />
 
-            {/* Vendor Management Routes */}
-            <Route path="/street-vendors" element={<Vendors />} />
-            <Route path="/vendors" element={<Navigate to="/street-vendors" replace />} />
+            {/* VENDORS */}
+
+            <Route
+              path="/vendors"
+              element={<Vendors />}
+            />
+
+            <Route
+              path="/vendors/:id"
+              element={
+                <VendorDetails />
+              }
+            />
 
             <Route
               path="/vendors/add"
@@ -73,7 +102,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/vendors/:id" element={<VendorDetails />} />
+
             <Route
               path="/vendors/edit/:id"
               element={
@@ -83,8 +112,67 @@ function App() {
               }
             />
 
-            {/* Fallback Redirect */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            {/* ADVERTISEMENTS */}
+
+            <Route
+              path="/advertisements"
+              element={
+                <Advertisements />
+              }
+            />
+
+            <Route
+              path="/advertisements/create"
+              element={
+                <ProtectedRoute>
+                  <CreateAdvertisement />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/advertisements/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditAdvertisement />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* POSTS */}
+
+            <Route
+              path="/posts"
+              element={<Posts />}
+            />
+
+            <Route
+              path="/posts/create"
+              element={
+                <ProtectedRoute>
+                  <CreatePost />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/posts/:id"
+              element={
+                <PostDetails />
+              }
+            />
+
+            {/* FALLBACK */}
+
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to="/"
+                  replace
+                />
+              }
+            />
           </Routes>
         </main>
 
@@ -93,5 +181,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
