@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { authAPI } from "../../../backend/services/api";
+import { createContext, useContext, useEffect, useState } from "react";
+import { authAPI } from "../services/api";
 
 const AuthContext = createContext(null);
 
@@ -7,34 +7,59 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check for existing session on mount
+  // Check if a user is already logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      authAPI
-        .getMe()
-        .then(setUser)
-        .catch(() => localStorage.removeItem("token"))
-        .finally(() => setLoading(false));
-    } else {
+
+    if (!token) {
       setLoading(false);
+      return;
     }
+
+    authAPI
+      .getMe()
+      .then((userData) => {
+        setUser(userData);
+      })
+      .catch((error) => {
+        console.error("Session check failed:", error);
+        localStorage.removeItem("token");
+        setUser(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
+  // Login
   const login = async (credentials) => {
-    const { token, user } = await authAPI.login(credentials);
-    localStorage.setItem("token", token);
-    setUser(user);
-    return user;
+    const data = await authAPI.login(credentials);
+
+    if (!data.token) {
+      throw new Error("Login succeeded but no token was returned.");
+    }
+
+    localStorage.setItem("token", data.token);
+    setUser(data.user);
+
+    return data.user;
   };
 
+  // Register
   const register = async (userData) => {
-    const { token, user } = await authAPI.register(userData);
-    localStorage.setItem("token", token);
-    setUser(user);
-    return user;
+    const data = await authAPI.register(userData);
+
+    if (!data.token) {
+      throw new Error("Registration succeeded but no token was returned.");
+    }
+
+    localStorage.setItem("token", data.token);
+    setUser(data.user);
+
+    return data.user;
   };
 
+  // Logout
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
@@ -43,7 +68,7 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     loading,
-    isAuthenticated: !!user,
+    isAuthenticated: Boolean(user),
     login,
     register,
     logout,
@@ -56,10 +81,12 @@ export function AuthProvider({ children }) {
   );
 }
 
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error("useAuth must be used within AuthProvider");
   }
+
   return context;
-};
+    }
