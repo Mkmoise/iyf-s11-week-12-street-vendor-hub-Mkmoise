@@ -1,50 +1,46 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-function Footer() {
-  const currentYear = new Date().getFullYear();
-
+export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Brand Summary */}
-        <div className="footer-section brand-info">
-          <h3>StreetVendorHub</h3>
+        <div>
+          <h3>
+            StreetVendorHub
+          </h3>
+
           <p>
-            Empowering local micro-enterprises and connecting communities through accessible digital solutions.
+            Connecting street vendors
+            with customers and their
+            community.
           </p>
         </div>
 
-        {/* Quick Links */}
-        <div className="footer-section links">
-          <h4>Quick Links</h4>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About Us</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
-          </ul>
-        </div>
+        <div className="footer-links">
+          <Link to="/">
+            Home
+          </Link>
 
-        {/* Contact & Support */}
-        <div className="footer-section contact-info">
-          <h4>Support</h4>
-          <p>Email: support@streetvendorhub.com</p>
-          <p>Location: Nairobi, Kenya</p>
+          <Link to="/vendors">
+            Vendors
+          </Link>
+
+          <Link to="/posts">
+            Community
+          </Link>
+
+          <Link to="/contact">
+            Contact
+          </Link>
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="footer-bottom">
-        <p>&copy; {currentYear} StreetVendorHub. All rights reserved.</p>
+        ©{" "}
+        {new Date().getFullYear()}{" "}
+        StreetVendorHub. All rights
+        reserved.
       </div>
     </footer>
   );
 }
-
-export default Footer;
