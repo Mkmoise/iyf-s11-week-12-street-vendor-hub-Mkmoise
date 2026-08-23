@@ -1,49 +1,99 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import './Navbar.css'; // Imports the navbar styling
+import {
+  Link,
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
 
-function Navbar() {
+import { useAuth } from "../context/AuthContext";
+
+export default function Navbar() {
+  const {
+    user,
+    isAuthenticated,
+    logout,
+  } = useAuth();
+
+  const navigate =
+    useNavigate();
+
+  const handleLogout = () => {
+    logout();
+
+    navigate("/", {
+      replace: true,
+    });
+  };
+
   return (
-    <header className="navbar-header">
-      <nav className="navbar">
-        {/* Brand Logo / Title */}
-        <div className="navbar-brand">
-          <Link to="/" className="brand-logo">
-            <span className="brand-title">StreetVendorHub</span>
-          </Link>
-        </div>
+    <header className="navbar">
+      <div className="navbar-container">
+        <Link
+          to="/"
+          className="logo"
+        >
+          StreetVendorHub
+        </Link>
 
-        {/* Navigation Links */}
-        <div className="nav-links">
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            end
-          >
+        <nav className="nav-links">
+          <NavLink to="/">
             Home
           </NavLink>
-          <NavLink
-            to="/street-vendors"
-            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-          >
-            Street Vendors
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-          >
+
+          <NavLink to="/about">
             About
           </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-          >
+
+          <NavLink to="/vendors">
+            Vendors
+          </NavLink>
+
+          <NavLink to="/advertisements">
+            Advertisements
+          </NavLink>
+
+          <NavLink to="/posts">
+            Community
+          </NavLink>
+
+          <NavLink to="/contact">
             Contact
           </NavLink>
+        </nav>
+
+        <div className="nav-auth">
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/profile"
+                className="profile-link"
+              >
+                {user?.name ||
+                  "Profile"}
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                className="logout-button"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="register-button"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
-      </nav>
+      </div>
     </header>
   );
 }
-
-export default Navbar;
