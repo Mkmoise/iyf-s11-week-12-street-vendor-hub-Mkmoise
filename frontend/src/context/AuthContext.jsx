@@ -1,15 +1,27 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+
 import { authAPI } from "../services/api";
 
-const AuthContext = createContext(null);
+const AuthContext =
+  createContext(null);
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+export function AuthProvider({
+  children,
+}) {
+  const [user, setUser] =
+    useState(null);
 
-  // Check if a user is already logged in
+  const [loading, setLoading] =
+    useState(true);
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token =
+      localStorage.getItem("token");
 
     if (!token) {
       setLoading(false);
@@ -18,12 +30,15 @@ export function AuthProvider({ children }) {
 
     authAPI
       .getMe()
-      .then((userData) => {
-        setUser(userData);
+      .then((data) => {
+        setUser(
+          data.user || data
+        );
       })
-      .catch((error) => {
-        console.error("Session check failed:", error);
-        localStorage.removeItem("token");
+      .catch(() => {
+        localStorage.removeItem(
+          "token"
+        );
         setUser(null);
       })
       .finally(() => {
@@ -31,62 +46,92 @@ export function AuthProvider({ children }) {
       });
   }, []);
 
-  // Login
-  const login = async (credentials) => {
-    const data = await authAPI.login(credentials);
+  const login = async (
+    credentials
+  ) => {
+    const data =
+      await authAPI.login(
+        credentials
+      );
 
     if (!data.token) {
-      throw new Error("Login succeeded but no token was returned.");
+      throw new Error(
+        "Login failed: no token returned."
+      );
     }
 
-    localStorage.setItem("token", data.token);
-    setUser(data.user);
+    localStorage.setItem(
+      "token",
+      data.token
+    );
 
-    return data.user;
+    setUser(
+      data.user || null
+    );
+
+    return data;
   };
 
-  // Register
-  const register = async (userData) => {
-    const data = await authAPI.register(userData);
+  const register = async (
+    userData
+  ) => {
+    const data =
+      await authAPI.register(
+        userData
+      );
 
     if (!data.token) {
-      throw new Error("Registration succeeded but no token was returned.");
+      throw new Error(
+        "Registration failed: no token returned."
+      );
     }
 
-    localStorage.setItem("token", data.token);
-    setUser(data.user);
+    localStorage.setItem(
+      "token",
+      data.token
+    );
 
-    return data.user;
+    setUser(
+      data.user || null
+    );
+
+    return data;
   };
 
-  // Logout
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem(
+      "token"
+    );
+
     setUser(null);
   };
 
-  const value = {
-    user,
-    loading,
-    isAuthenticated: Boolean(user),
-    login,
-    register,
-    logout,
-  };
-
   return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAuthenticated:
+          Boolean(user),
+        login,
+        register,
+        logout,
+      }}
+    >
+      {children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
+  const context =
+    useContext(AuthContext);
 
   if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
+    throw new Error(
+      "useAuth must be used inside AuthProvider"
+    );
   }
 
   return context;
-    }
+}
