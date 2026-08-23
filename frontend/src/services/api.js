@@ -1,101 +1,217 @@
 const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:3000/api";
 
-// Get JWT token from browser storage
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("token");
-
-  return token
-    ? {
-        Authorization: `Bearer ${token}`,
-      }
-    : {};
+const getToken = () => {
+  return localStorage.getItem("token");
 };
 
-// Reusable request function
 const request = async (endpoint, options = {}) => {
-  const url = `${API_URL}${endpoint}`;
+  const token = getToken();
 
-  const config = {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-      ...options.headers,
-    },
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
 
-  try {
-    const response = await fetch(url, config);
-
-    // Try to read JSON response
-    let data = {};
-
-    try {
-      data = await response.json();
-    } catch {
-      data = {};
-    }
-
-    if (!response.ok) {
-      throw new Error(
-        data.message || `Request failed with status ${response.status}`
-      );
-    }
-
-    return data;
-  } catch (error) {
-    // Give a clearer message when backend is not running
-    if (error instanceof TypeError && error.message === "Failed to fetch") {
-      throw new Error(
-        "Unable to connect to the server. Please make sure the backend is running."
-      );
-    }
-
-    throw error;
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
+
+  const response = await fetch(
+    `${API_URL}${endpoint}`,
+    {
+      ...options,
+      headers,
+    }
+  );
+
+  let data = {};
+
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+        `Request failed with status ${response.status}`
+    );
+  }
+
+  return data;
 };
 
-// Authentication API
+/* =========================
+   AUTH
+========================= */
+
 export const authAPI = {
-  // Register
   register: (userData) =>
     request("/auth/register", {
       method: "POST",
       body: JSON.stringify(userData),
     }),
 
-  // Login
   login: (credentials) =>
     request("/auth/login", {
       method: "POST",
       body: JSON.stringify(credentials),
     }),
 
-  // Get currently logged-in user
-  getMe: () => request("/auth/me"),
+  getMe: () =>
+    request("/auth/me"),
 };
 
-// Vendor API
+/* =========================
+   USERS
+========================= */
+
+export const userAPI = {
+  getProfile: (id) =>
+    request(`/users/${id}`),
+
+  updateProfile: (data) =>
+    request("/users/profile", {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+};
+
+/* =========================
+   VENDORS
+========================= */
+
 export const vendorAPI = {
-  getAll: (query = "") => request(`/vendors${query}`),
+  getAll: (search = "") =>
+    request(
+      `/vendors${
+        search
+          ? `?search=${encodeURIComponent(
+              search
+            )}`
+          : ""
+      }`
+    ),
 
-  getById: (id) => request(`/vendors/${id}`),
+  getById: (id) =>
+    request(`/vendors/${id}`),
 
-  create: (vendorData) =>
+  create: (data) =>
     request("/vendors", {
       method: "POST",
-      body: JSON.stringify(vendorData),
+      body: JSON.stringify(data),
     }),
 
-  update: (id, vendorData) =>
+  update: (id, data) =>
     request(`/vendors/${id}`, {
       method: "PUT",
-      body: JSON.stringify(vendorData),
+      body: JSON.stringify(data),
     }),
 
   delete: (id) =>
     request(`/vendors/${id}`, {
       method: "DELETE",
     }),
+};
+
+/* =========================
+   ADVERTISEMENTS
+========================= */
+
+export const advertisementAPI = {
+  getAll: () =>
+    request("/advertisements"),
+
+  getById: (id) =>
+    request(`/advertisements/${id}`),
+
+  create: (data) =>
+    request("/advertisements", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
+  update: (id, data) =>
+    request(`/advertisements/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+
+  delete: (id) =>
+    request(`/advertisements/${id}`, {
+      method: "DELETE",
+    }),
+};
+
+/* =========================
+   POSTS
+========================= */
+
+export const postAPI = {
+  getAll: () =>
+    request("/posts"),
+
+  getById: (id) =>
+    request(`/posts/${id}`),
+
+  create: (data) =>
+    request("/posts", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+};
+
+/* =========================
+   COMMENTS
+========================= */
+
+export const commentAPI = {
+  getByPost: (postId) =>
+    request(
+      `/posts/${postId}/comments`
+    ),
+
+  create: (postId, content) =>
+    request(
+      `/posts/${postId}/comments`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          content,
+        }),
+      }
+    ),
+};
+
+/* =========================
+   REVIEWS
+========================= */
+
+export const reviewAPI = {
+  getByVendor: (vendorId) =>
+    request(
+      `/vendors/${vendorId}/reviews`
+    ),
+
+  create: (vendorId, data) =>
+    request(
+      `/vendors/${vendorId}/reviews`,
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+    ),
+};
+
+export default {
+  authAPI,
+  userAPI,
+  vendorAPI,
+  advertisementAPI,
+  postAPI,
+  commentAPI,
+  reviewAPI,
 };
