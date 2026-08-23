@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "../styles/auth.css";
 
 export default function Login() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -13,21 +17,40 @@ export default function Login() {
   const location = useLocation();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setError("");
     setLoading(true);
 
     try {
-      await login(formData);
-      // send them back where they were headed, or default to /vendors
-      const redirectTo = location.state?.from?.pathname || "/vendors";
-      navigate(redirectTo, { replace: true });
-    } catch (err) {
-      setError(err.message);
+      const user = await login({
+        email: formData.email.trim().toLowerCase(),
+        password: formData.password,
+      });
+
+      console.log("Login successful:", user);
+
+      const redirectTo =
+        location.state?.from?.pathname || "/vendors";
+
+      navigate(redirectTo, {
+        replace: true,
+      });
+    } catch (error) {
+      console.error("Login error:", error);
+
+      setError(
+        error.message || "Login failed. Please check your email and password."
+      );
     } finally {
       setLoading(false);
     }
@@ -38,13 +61,24 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="auth-form">
         <div className="auth-heading">
           <p className="auth-eyebrow">Street Vendor Hub</p>
+
           <h1>Welcome back</h1>
-          <p>Log in to discover and manage local vendors.</p>
+
+          <p>
+            Log in to discover and manage local vendors.
+          </p>
         </div>
 
-        {error && <p className="auth-error">{error}</p>}
+        {error && (
+          <p className="auth-error" role="alert">
+            {error}
+          </p>
+        )}
 
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">
+          Email
+        </label>
+
         <input
           id="email"
           name="email"
@@ -56,7 +90,10 @@ export default function Login() {
           required
         />
 
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">
+          Password
+        </label>
+
         <input
           id="password"
           name="password"
@@ -68,14 +105,21 @@ export default function Login() {
           required
         />
 
-        <button type="submit" className="auth-button" disabled={loading}>
+        <button
+          type="submit"
+          className="auth-button"
+          disabled={loading}
+        >
           {loading ? "Logging in..." : "Log In"}
         </button>
 
         <p className="auth-link">
-          Don't have an account? <Link to="/register">Register</Link>
+          Don't have an account?{" "}
+          <Link to="/register">
+            Register
+          </Link>
         </p>
       </form>
     </main>
   );
-}
+          }
