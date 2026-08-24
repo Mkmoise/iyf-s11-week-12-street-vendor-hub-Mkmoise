@@ -1,30 +1,20 @@
-import {
-  useState,
-} from "react";
-
-import {
-  commentAPI,
-} from "../../services/api";
+import { useState } from "react";
+import { commentAPI } from "../../services/api";
 
 export default function CommentForm({
   postId,
   onCommentCreated,
 }) {
-  const [content, setContent] =
-    useState("");
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const [loading, setLoading] =
-    useState(false);
-
-  const [error, setError] =
-    useState("");
-
-  const handleSubmit = async (
-    event
-  ) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!content.trim()) {
+    const trimmedContent = content.trim();
+
+    if (!trimmedContent) {
       return;
     }
 
@@ -32,21 +22,21 @@ export default function CommentForm({
     setError("");
 
     try {
-      const data =
-        await commentAPI.create(
-          postId,
-          content.trim()
-        );
-
-      onCommentCreated(
-        data.comment || data
+      const data = await commentAPI.create(
+        postId,
+        {
+          text: trimmedContent,
+        }
       );
+
+      onCommentCreated(data.comment || data);
 
       setContent("");
     } catch (error) {
+      console.error("Comment error:", error);
+
       setError(
-        error.message ||
-          "Unable to add comment."
+        error.message || "Unable to add comment."
       );
     } finally {
       setLoading(false);
@@ -67,18 +57,18 @@ export default function CommentForm({
       <textarea
         value={content}
         onChange={(event) =>
-          setContent(
-            event.target.value
-          )
+          setContent(event.target.value)
         }
         placeholder="Write a comment..."
         rows="4"
         required
+        disabled={loading}
       />
 
       <button
+        type="submit"
         className="button"
-        disabled={loading}
+        disabled={loading || !content.trim()}
       >
         {loading
           ? "Commenting..."
