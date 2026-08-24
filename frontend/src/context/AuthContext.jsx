@@ -7,21 +7,14 @@ import {
 
 import { authAPI } from "../services/api";
 
-const AuthContext =
-  createContext(null);
+const AuthContext = createContext(null);
 
-export function AuthProvider({
-  children,
-}) {
-  const [user, setUser] =
-    useState(null);
-
-  const [loading, setLoading] =
-    useState(true);
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token =
-      localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     if (!token) {
       setLoading(false);
@@ -29,16 +22,17 @@ export function AuthProvider({
     }
 
     authAPI
-      .getMe()
+      .getProfile()
       .then((data) => {
-        setUser(
-          data.user || data
-        );
+        setUser(data.user || data);
       })
-      .catch(() => {
-        localStorage.removeItem(
-          "token"
+      .catch((error) => {
+        console.error(
+          "Session check failed:",
+          error
         );
+
+        localStorage.removeItem("token");
         setUser(null);
       })
       .finally(() => {
@@ -46,63 +40,38 @@ export function AuthProvider({
       });
   }, []);
 
-  const login = async (
-    credentials
-  ) => {
-    const data =
-      await authAPI.login(
-        credentials
-      );
+  const login = async (credentials) => {
+    const data = await authAPI.login(credentials);
 
     if (!data.token) {
       throw new Error(
-        "Login failed: no token returned."
+        "Login succeeded but no token was returned."
       );
     }
 
-    localStorage.setItem(
-      "token",
-      data.token
-    );
+    localStorage.setItem("token", data.token);
+    setUser(data.user);
 
-    setUser(
-      data.user || null
-    );
-
-    return data;
+    return data.user;
   };
 
-  const register = async (
-    userData
-  ) => {
-    const data =
-      await authAPI.register(
-        userData
-      );
+  const register = async (userData) => {
+    const data = await authAPI.register(userData);
 
     if (!data.token) {
       throw new Error(
-        "Registration failed: no token returned."
+        "Registration succeeded but no token was returned."
       );
     }
 
-    localStorage.setItem(
-      "token",
-      data.token
-    );
+    localStorage.setItem("token", data.token);
+    setUser(data.user);
 
-    setUser(
-      data.user || null
-    );
-
-    return data;
+    return data.user;
   };
 
   const logout = () => {
-    localStorage.removeItem(
-      "token"
-    );
-
+    localStorage.removeItem("token");
     setUser(null);
   };
 
@@ -111,25 +80,23 @@ export function AuthProvider({
       value={{
         user,
         loading,
-        isAuthenticated:
-          Boolean(user),
+        isAuthenticated: Boolean(user),
         login,
         register,
         logout,
       }}
     >
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
-  const context =
-    useContext(AuthContext);
+  const context = useContext(AuthContext);
 
   if (!context) {
     throw new Error(
-      "useAuth must be used inside AuthProvider"
+      "useAuth must be used within AuthProvider"
     );
   }
 
