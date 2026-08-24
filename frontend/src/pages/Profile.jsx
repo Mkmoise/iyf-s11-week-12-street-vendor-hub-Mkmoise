@@ -42,7 +42,7 @@ export default function Profile() {
     }
 
     userAPI
-      .getProfile(user.id)
+      .getProfile()
       .then((data) => {
         const current =
           data.user || data;
