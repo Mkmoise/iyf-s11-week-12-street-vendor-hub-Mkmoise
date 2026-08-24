@@ -2,46 +2,59 @@ const API_URL =
   import.meta.env.VITE_API_URL ||
   "http://localhost:3000/api";
 
-const getToken = () => {
-  return localStorage.getItem("token");
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+
+  return token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : {};
 };
 
 const request = async (endpoint, options = {}) => {
-  const token = getToken();
+  const url = `${API_URL}${endpoint}`;
 
-  const headers = {
-    "Content-Type": "application/json",
-    ...(options.headers || {}),
+  const config = {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+      ...(options.headers || {}),
+    },
   };
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
-  const response = await fetch(
-    `${API_URL}${endpoint}`,
-    {
-      ...options,
-      headers,
-    }
-  );
-
-  let data = {};
-
   try {
-    data = await response.json();
-  } catch {
-    data = {};
-  }
+    const response = await fetch(url, config);
 
-  if (!response.ok) {
-    throw new Error(
-      data.message ||
-        `Request failed with status ${response.status}`
-    );
-  }
+    let data = {};
 
-  return data;
+    try {
+      data = await response.json();
+    } catch {
+      data = {};
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        data.message ||
+          `Request failed with status ${response.status}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    if (
+      error instanceof TypeError &&
+      error.message.includes("fetch")
+    ) {
+      throw new Error(
+        "Unable to connect to StreetVendorHub server."
+      );
+    }
+
+    throw error;
+  }
 };
 
 /* =========================
@@ -61,22 +74,28 @@ export const authAPI = {
       body: JSON.stringify(credentials),
     }),
 
-  getMe: () =>
-    request("/auth/me"),
+  getProfile: () =>
+    request("/auth/profile"),
+
+  updateProfile: (profileData) =>
+    request("/auth/profile", {
+      method: "PUT",
+      body: JSON.stringify(profileData),
+    }),
 };
 
 /* =========================
-   USERS
+   USER
 ========================= */
 
 export const userAPI = {
-  getProfile: (id) =>
-    request(`/users/${id}`),
+  getProfile: () =>
+    request("/auth/profile"),
 
-  updateProfile: (data) =>
-    request("/users/profile", {
+  updateProfile: (profileData) =>
+    request("/auth/profile", {
       method: "PUT",
-      body: JSON.stringify(data),
+      body: JSON.stringify(profileData),
     }),
 };
 
@@ -85,63 +104,26 @@ export const userAPI = {
 ========================= */
 
 export const vendorAPI = {
-  getAll: (search = "") =>
-    request(
-      `/vendors${
-        search
-          ? `?search=${encodeURIComponent(
-              search
-            )}`
-          : ""
-      }`
-    ),
+  getAll: (query = "") =>
+    request(`/vendors${query}`),
 
   getById: (id) =>
     request(`/vendors/${id}`),
 
-  create: (data) =>
+  create: (vendorData) =>
     request("/vendors", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(vendorData),
     }),
 
-  update: (id, data) =>
+  update: (id, vendorData) =>
     request(`/vendors/${id}`, {
       method: "PUT",
-      body: JSON.stringify(data),
+      body: JSON.stringify(vendorData),
     }),
 
   delete: (id) =>
     request(`/vendors/${id}`, {
-      method: "DELETE",
-    }),
-};
-
-/* =========================
-   ADVERTISEMENTS
-========================= */
-
-export const advertisementAPI = {
-  getAll: () =>
-    request("/advertisements"),
-
-  getById: (id) =>
-    request(`/advertisements/${id}`),
-
-  create: (data) =>
-    request("/advertisements", {
-      method: "POST",
-      body: JSON.stringify(data),
-    }),
-
-  update: (id, data) =>
-    request(`/advertisements/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-    }),
-
-  delete: (id) =>
-    request(`/advertisements/${id}`, {
       method: "DELETE",
     }),
 };
@@ -157,10 +139,21 @@ export const postAPI = {
   getById: (id) =>
     request(`/posts/${id}`),
 
-  create: (data) =>
+  create: (postData) =>
     request("/posts", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(postData),
+    }),
+
+  update: (id, postData) =>
+    request(`/posts/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(postData),
+    }),
+
+  delete: (id) =>
+    request(`/posts/${id}`, {
+      method: "DELETE",
     }),
 };
 
@@ -170,48 +163,45 @@ export const postAPI = {
 
 export const commentAPI = {
   getByPost: (postId) =>
-    request(
-      `/posts/${postId}/comments`
-    ),
+    request(`/comments/post/${postId}`),
 
-  create: (postId, content) =>
-    request(
-      `/posts/${postId}/comments`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          content,
-        }),
-      }
-    ),
+  create: (postId, commentData) =>
+    request(`/comments/post/${postId}`, {
+      method: "POST",
+      body: JSON.stringify(commentData),
+    }),
+
+  delete: (id) =>
+    request(`/comments/${id}`, {
+      method: "DELETE",
+    }),
 };
 
 /* =========================
-   REVIEWS
+   ADVERTISEMENTS
 ========================= */
 
-export const reviewAPI = {
-  getByVendor: (vendorId) =>
-    request(
-      `/vendors/${vendorId}/reviews`
-    ),
+export const advertisementAPI = {
+  getAll: () =>
+    request("/advertisements"),
 
-  create: (vendorId, data) =>
-    request(
-      `/vendors/${vendorId}/reviews`,
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    ),
-};
+  getById: (id) =>
+    request(`/advertisements/${id}`),
 
-export default {
-  authAPI,
-  userAPI,
-  vendorAPI,
-  advertisementAPI,
-  postAPI,
-  commentAPI,
-  reviewAPI,
+  create: (advertisementData) =>
+    request("/advertisements", {
+      method: "POST",
+      body: JSON.stringify(advertisementData),
+    }),
+
+  update: (id, advertisementData) =>
+    request(`/advertisements/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(advertisementData),
+    }),
+
+  delete: (id) =>
+    request(`/advertisements/${id}`, {
+      method: "DELETE",
+    }),
 };
