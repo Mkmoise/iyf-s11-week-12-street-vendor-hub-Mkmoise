@@ -23,11 +23,11 @@ export default function CommentForm({
 
     try {
       const data = await commentAPI.create(
-        postId,
-        {
-          text: trimmedContent,
-        }
-      );
+  postId,
+  {
+    content: trimmedContent,
+  }
+);
 
       onCommentCreated(data.comment || data);
 
