@@ -1,15 +1,15 @@
 # iyf-s11-week-12-street-vendor-hub-Mkmoise
 ## Author
-- **Name:** [SYNTAX GROUP]
+- **Name:** Moisé Nyarugabo 
 - **Date:** August 21, 2026
 
 ## Project Description
 Street Vendor Hub is a full-stack community platform that connects local street vendors with customers. Vendors can create listings for their stalls, and users can browse, search, and view vendor details, alongside advertisement listings and a review system. The app includes full user authentication so vendors can manage their own listings securely.
 
 ## Technologies Used
-- React 19 + Vite
+- React + Vite
 - React Router
-- Node.js / Express 5
+- Node.js / Express 
 - MongoDB with Mongoose
 - JWT authentication (jsonwebtoken, bcryptjs)
 - CORS
@@ -29,8 +29,8 @@ Street Vendor Hub is a full-stack community platform that connects local street 
 - About / Contact / Home informational pages
 
 ## Team
-- Team Lead: [@Mkmoise](https://github.com/Mkmoise) — project setup, Dashboard, Advertisement feature, routing
-- Auth (this contributor): [@kennedymurimi100](https://github.com/kennedymurimi100) — authentication system (backend + frontend)
+- Team Lead: @Mkmoise(https://github.com/Mkmoise) — project setup, Dashboard, Advertisement feature, routing
+- Auth: [@kennedymurimi100](https://github.com/kennedymurimi100) — authentication system (backend + frontend)
 - Vendors: [@rhonexkilibwa001](https://github.com/rhonexkilibwa001) — vendor listings feature
 - Reviewer: [@kuriarobert41-debug](https://github.com/kuriarobert41-debug) — PR reviews/merges
 
@@ -43,14 +43,14 @@ We us the syntax group we have developed a web site that help the vendors in exp
 - Opened and merged PR #4/#6 (`feature/authentication`) into `main`
 
 ### Prerequisites
-- Node.js 18+
-- MongoDB Atlas account (or local MongoDB)
+- Node.js 
+- MongoDB Atlas account 
 
 ### Backend
 ```bash
 cd backend
 npm install
-cp .env.example .env   # add MONGODB_URI, JWT_SECRET, etc.
+cp .env.example .env   # add MONGODB_URI, JWT_SECRET, 
 npm run dev
 ```
 
@@ -83,9 +83,8 @@ Open the Vite dev server URL shown in your terminal (typically `http://localhost
 - Resolving merge conflicts in `App.jsx` where multiple teammates added routes/components in parallel
 - Making sure `.env` files and `node_modules` were excluded from git tracking after they were accidentally committed early on
 - Keeping styling isolated per feature (vendors vs. auth vs. advertisements) to avoid CSS collisions
+- HOSTING BACKEND && FRONTEND AND CONNECTING THEM TOGETHER 
 
-## Screenshots (optional)
-_Add screenshots here, e.g._
 
  # Contributors
 
@@ -93,10 +92,10 @@ _Add screenshots here, e.g._
 
 | Name | GitHub | Role | Contributions |
 |------|--------|------|---------------|
-| [Team Lead Name] | [@Mkmoise](https://github.com/Mkmoise) | Team Lead | Project setup, Dashboard, Advertisement feature (create/edit), App routing, README/CONTRIBUTORS docs |
-| **[kennedymurimi100]** | [@kennedymurimi100](https://github.com/kennedymurimi100) | Developer | Authentication system (backend model/controller/routes, AuthContext, ProtectedRoute, Login/Register pages, AuthNav) |
-| [Member 3 Rhonex] | [@rhonexkilibwa001](https://github.com/rhonexkilibwa001) | Developer | Vendor listings feature (backend model/controller/routes, Vendors/VendorDetails/AddVendor/EditVendor pages, VendorForm/VendorCard components, Navbar, Footer, Home/About/Contact pages) |
-| [Member 4 kuriarobert] | [@kuriarobert41-debug](https://github.com/kuriarobert41-debug) | Reviewer | Reviewed and merged pull requests (#3, #5) |
+| Team Lead USERNAME| @Mkmoise](https://github.com/Mkmoise) | Team Lead | Project setup, Dashboard, Advertisement feature (create/edit), App routing, README/CONTRIBUTORS docs |
+| **kennedymurimi100** | @kennedymurimi100 (https://github.com/kennedymurimi100) | Developer | Authentication system (backend model/controller/routes, AuthContext, ProtectedRoute, Login/Register pages, AuthNav) |
+|Rhonex | [@rhonexkilibwa001](https://github.com/rhonexkilibwa001) | Developer | Vendor listings feature (backend model/controller/routes, Vendors/VendorDetails/AddVendor/EditVendor pages, VendorForm/VendorCard components, Navbar, Footer, Home/About/Contact pages) |
+|Margaret| [@kuriarobert41-debug](https://github.com/kuriarobert41-debug) | Reviewer | Reviewed and merged pull requests|
 
 ## Contribution Breakdown
 
@@ -106,19 +105,19 @@ _Add screenshots here, e.g._
 - Merged feature branches into `main` and resolved routing conflicts in `App.jsx`
 - Maintained project README and CONTRIBUTORS docs
 
-### member 2 (kennedymurimi100)
+### kennedymurimi100
 - Built the authentication system: user model, controller, middleware, and routes on the backend
 - Implemented `AuthContext`, `ProtectedRoute`, `Login.jsx`, `Register.jsx`, and `AuthNav.jsx` on the frontend
 - Wired auth environment variables and fixed backend env-loading bugs
 
-### Member 3 (rhonexkilibwa001)
+### rhonexkilibwa001
 - Built the vendor listings feature end-to-end: `vendor.js` model, `vendorController.js`, `vendor.Routes.js`
 - Created `Vendors.jsx`, `VendorDetails.jsx`, `AddVendor.jsx`, `EditVendor.jsx` pages
 - Built `VendorForm.jsx` and `VendorCard.jsx` components, plus shared `Navbar.jsx` and `Footer.jsx`
 - Built `Home.jsx`, `About.jsx`, and `Contact.jsx` informational pages
 - Opened and merged PR #1 (`feature-Vendors-Features`) into `main`
-
-### Member 4 (kuriarobert41-debug)
+- 
+### kuriarobert41-debug
 - Reviewed and merged pull requests into `main` (advertisement feature PRs)
 
 ---
@@ -126,7 +125,7 @@ _Add screenshots here, e.g._
 
 
 
-## Live Demo (if deployed)
-
+## Live Demo
+https://streetvendor-frontend-liart.vercel.app
 
 
