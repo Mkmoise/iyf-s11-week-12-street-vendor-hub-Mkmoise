@@ -10,6 +10,11 @@ export default function VendorCard({
           {vendor.name}
         </h3>
 
+      <div className="vendor-card-body">
+        <h3>
+          {vendor.businessName}
+        </h3>
+
         <p>
           {vendor.description ||
             "Local street vendor"}
