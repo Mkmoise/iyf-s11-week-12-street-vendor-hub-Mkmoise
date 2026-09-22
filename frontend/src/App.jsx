@@ -29,7 +29,6 @@ import EditAdvertisement from "./pages/EditAdvertisement";
 import Posts from "./pages/Posts";
 import CreatePost from "./pages/CreatePost";
 import PostDetails from "./pages/PostDetails";
-import LandingPage from "./pages/LandingPage";
 
 import "./App.css";
 
