@@ -1,8 +1,6 @@
-import {
-  Link,
-} from "react-router-dom";
+import { Link, } from "react-router-dom";
 
-export default function Home() {
+function Home() {
   return (
     <main className="home">
       <section className="hero">
@@ -105,3 +103,4 @@ export default function Home() {
     </main>
   );
 }
+export default Home;
