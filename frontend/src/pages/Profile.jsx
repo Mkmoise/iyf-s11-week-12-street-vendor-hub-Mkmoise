@@ -93,26 +93,31 @@ function Profile() {
   return (
     <main className="profile-page">
       <div className="profile-container">
-        <section className="profile-card">
+        <section className="profile-header">
+
           <div className="profile-avatar">
-            {profile?.name
-              ?.charAt(0)
-              .toUpperCase() ||
-              "U"}
+            {profile?.name?.charAt(0).toUpperCase() || "U"}
           </div>
 
-          <p className="eyebrow">
-            MY PROFILE
-          </p>
+          <div className="profile-header-info">
+            <p className="eyebrow">
+              MY PROFILE
+            </p>
 
-          <h1>
-            {profile?.name ||
-              "User"}
-          </h1>
+            <h1>{profile?.name || "User"}</h1>
 
-          <p className="profile-email">
-            {profile?.email}
-          </p>
+            <p className="profile-email">{profile?.email}</p>
+
+            {profile?.location && (
+              <p className="profile-location">
+                📍{profile.location}
+              </p>
+            )}
+          </div>
+
+          <button className="button" onClick={() => setEditing(true)}>
+            Edit Profile
+          </button>
 
           {message && (
             <div className="success-message">
@@ -150,14 +155,6 @@ function Profile() {
                 </p>
               </div>
 
-              <button
-                className="button"
-                onClick={() =>
-                  setEditing(true)
-                }
-              >
-                Edit Profile
-              </button>
             </>
           ) : (
             <form
