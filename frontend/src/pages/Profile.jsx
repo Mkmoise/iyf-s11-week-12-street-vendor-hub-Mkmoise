@@ -1,17 +1,8 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState, } from "react";
+import { useAuth, } from "../context/AuthContext";
+import { userAPI, } from "../services/api";
 
-import {
-  useAuth,
-} from "../context/AuthContext";
-
-import {
-  userAPI,
-} from "../services/api";
-
-export default function Profile() {
+function Profile() {
   const { user } =
     useAuth();
 
@@ -58,7 +49,7 @@ export default function Profile() {
       .catch((error) => {
         setError(
           error.message ||
-            "Unable to load profile."
+          "Unable to load profile."
         );
       });
   }, [user]);
@@ -92,7 +83,7 @@ export default function Profile() {
     } catch (error) {
       setError(
         error.message ||
-          "Unable to update profile."
+        "Unable to update profile."
       );
     } finally {
       setSaving(false);
@@ -227,3 +218,4 @@ export default function Profile() {
     </main>
   );
 }
+export default Profile;
